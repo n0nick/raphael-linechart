@@ -313,6 +313,12 @@ Raphael.fn.lineChart = function(method) {
 					stroke: settings.colors.master,
 					"stroke-width": 2
 				});
+			
+				if (settings.hide_dots == true 
+						|| typeof(settings.hide_dots) == "number"
+						&& settings.hide_dots < size) {
+					dot.attr("opacity", 0); 
+				}
 
 				if (y === 0) {
 					dot.attr({
@@ -347,14 +353,6 @@ Raphael.fn.lineChart = function(method) {
 					line2: table.lines2[i]
 				});
 				helpers.bindHoverEvent(this, i, dot, rect, o.frame, o.label);
-			}
-			if (settings.hide_dots == true 
-					|| typeof(settings.hide_dots) == "number"
-					&& settings.hide_dots < o.dots.length) {
-				alert(settings.hide_dots + " " + o.dots.length);
-				for (var i = 0, ii = size; i < ii; i++) {
-					o.dots[i].attr("opacity", 0); 
-				}
 			}
 
 			p = p.concat([x, y, x, y]);
