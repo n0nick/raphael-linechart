@@ -313,6 +313,13 @@ Raphael.fn.lineChart = function(method) {
 					stroke: settings.colors.master,
 					"stroke-width": 2
 				});
+			
+				if (settings.hide_dots == true 
+						|| typeof(settings.hide_dots) == "number"
+						&& settings.hide_dots < size) {
+					dot.attr("opacity", 0); 
+				}
+
 				if (y === 0) {
 					dot.attr({
 						opacity: 0
@@ -700,10 +707,14 @@ Raphael.fn.lineChart = function(method) {
 				label[0].toFront();
 				label[1].toFront();
 				this.toFront();
+				if(dot.attr("opacity") == 0)
+					dot.attr("opacity", 255);
 				dot.attr("r", 6);
 				o.is_label_visible = true;
 		},
 		f_out = function() {
+			if(dot.attr("opacity") == 255)
+				dot.attr("opacity", 0);
 			dot.attr("r", 4);
 		
 			elm.leave_timer = window.setTimeout(function() {
